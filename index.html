@@ -4,28 +4,57 @@
   <meta charset="UTF-8">
   <title>Portaria</title>
 </head>
-<body style="font-family: Arial; text-align: center;">
+<body>
 
-  <h2>📢 CHAMAR SETOR</h2>
+<h2>Controle de Chamados</h2>
 
-  <button onclick="chamar('DP')">DP</button><br><br>
-  <button onclick="chamar('RH')">RH</button><br><br>
-  <button onclick="chamar('MANUTENÇÃO')">MANUTENÇÃO</button><br><br>
-  <button onclick="chamar('NUTEC')">NUTEC</button><br><br>
-  <button onclick="chamar('QSMS')">QSMS</button><br><br>
-  <button onclick="chamar('INFRAESTRUTURA')">INFRAESTRUTURA</button><br><br>
-  <button onclick="chamar('SUPRIMENTOS')">SUPRIMENTOS</button>
+<button onclick="enviar('DP','abrir')">Abrir DP</button>
+<button onclick="enviar('DP','finalizar')">Finalizar DP</button>
 
-  <script>
-    function chamar(setor) {
-      fetch("https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC/exec", {
-        method: "POST",
-        body: setor
-      })
-      .then(() => alert("Chamado enviado para " + setor))
-      .catch(() => alert("Erro ao enviar"));
-    }
-  </script>
+<br><br>
+
+<button onclick="enviar('RH','abrir')">Abrir RH</button>
+<button onclick="enviar('RH','finalizar')">Finalizar RH</button>
+
+<br><br>
+
+<button onclick="enviar('MANUTENCAO','abrir')">Abrir Manutenção</button>
+<button onclick="enviar('MANUTENCAO','finalizar')">Finalizar Manutenção</button>
+
+<br><br>
+
+<button onclick="enviar('NUTEC','abrir')">Abrir NUTEC</button>
+<button onclick="enviar('NUTEC','finalizar')">Finalizar NUTEC</button>
+
+<br><br>
+
+<button onclick="enviar('QSMS','abrir')">Abrir QSMS</button>
+<button onclick="enviar('QSMS','finalizar')">Finalizar QSMS</button>
+
+<br><br>
+
+<button onclick="enviar('INFRAESTRUTURA','abrir')">Abrir Infraestrutura</button>
+<button onclick="enviar('INFRAESTRUTURA','finalizar')">Finalizar Infraestrutura</button>
+
+<br><br>
+
+<button onclick="enviar('SUPRIMENTOS','abrir')">Abrir Suprimentos</button>
+<button onclick="enviar('SUPRIMENTOS','finalizar')">Finalizar Suprimentos</button>
+
+<script>
+function enviar(setor, acao) {
+  fetch("https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec?setor=" + setor + "&acao=" + acao, {
+    method: "GET",
+    mode: "no-cors"
+  })
+  .then(() => {
+    alert("Enviado com sucesso: " + setor + " - " + acao);
+  })
+  .catch(() => {
+    alert("Erro ao enviar");
+  });
+}
+</script>
 
 </body>
 </html>
