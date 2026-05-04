@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Portaria</title>
+</head>
+<body style="font-family: Arial; text-align: center;">
+
+  <h2>📢 CHAMAR SETOR</h2>
+
+  <button onclick="chamar('DP')">DP</button><br><br>
+  <button onclick="chamar('RH')">RH</button><br><br>
+  <button onclick="chamar('MANUTENÇÃO')">MANUTENÇÃO</button><br><br>
+  <button onclick="chamar('NUTEC')">NUTEC</button><br><br>
+  <button onclick="chamar('QSMS')">QSMS</button><br><br>
+  <button onclick="chamar('INFRAESTRUTURA')">INFRAESTRUTURA</button><br><br>
+  <button onclick="chamar('SUPRIMENTOS')">SUPRIMENTOS</button>
+
+  <script>
+    function chamar(setor) {
+      fetch("https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC/exec", {
+        method: "POST",
+        body: setor
+      })
+      .then(() => alert("Chamado enviado para " + setor))
+      .catch(() => alert("Erro ao enviar"));
+    }
+  </script>
+
+</body>
+</html>
