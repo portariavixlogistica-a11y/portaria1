@@ -1,111 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Portaria</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portaria</title>
 
-<style>
-body {
-  font-family: Arial;
-  text-align: center;
-  background: #f4f6f9;
-}
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
 
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
+    h1 {
+      margin-bottom: 20px;
+    }
 
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-}
+    .container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      max-width: 900px;
+      gap: 10px;
+      max-width: 800px;
+      margin: auto;
+    }
 
-.status {
-  font-weight: bold;
-  margin: 10px;
-}
+    button {
+      padding: 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-.livre { color: green; }
-.ocupado { color: red; }
+    .livre {
+@@ -42,52 +34,27 @@
+    .ocupado {
+      background: red;
+    }
 
-button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-}
-</style>
+    button:hover {
+      opacity: 0.8;
+    }
 
+    /* 📱 MOBILE (NÃO AFETA DESKTOP) */
+    @media (max-width: 600px) {
+
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 10px;
+      }
+
+      button {
+        padding: 30px 10px;
+        font-size: 18px;
+        border-radius: 15px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+    }
+  </style>
 </head>
 
 <body>
 
-<h1>Sistema de Chamados</h1>
+  <h1>Portaria</h1>
 
-<div class="container">
+  <div class="container">
+    <button id="DP" class="livre" onclick="clicar('DP')">DP</button>
+    <button id="RH" class="livre" onclick="clicar('RH')">RH</button>
+    <button id="MANUTENCAO" class="livre" onclick="clicar('MANUTENCAO')">MANUTENÇÃO</button>
+    <button id="NUTEC" class="livre" onclick="clicar('NUTEC')">NUTEC</button>
+    <button id="QSMS" class="livre" onclick="clicar('QSMS')">QSMS</button>
+    <button id="INFRAESTRUTURA" class="livre" onclick="clicar('INFRAESTRUTURA')">INFRA</button>
+    <button id="SUPRIMENTOS" class="livre" onclick="clicar('SUPRIMENTOS')">SUPRIMENTOS</button>
+  </div>
 
-<div class="card"><h3>DP</h3><div id="DP" class="status">...</div>
-<button onclick="enviar('DP','abrir')">Abrir</button>
-<button onclick="enviar('DP','finalizar')">Finalizar</button></div>
+  <script>
+    const url = "https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec";
 
-<div class="card"><h3>RH</h3><div id="RH" class="status">...</div>
-<button onclick="enviar('RH','abrir')">Abrir</button>
-<button onclick="enviar('RH','finalizar')">Finalizar</button></div>
-
-<div class="card"><h3>MANUTENÇÃO</h3><div id="MANUTENCAO" class="status">...</div>
-<button onclick="enviar('MANUTENCAO','abrir')">Abrir</button>
-<button onclick="enviar('MANUTENCAO','finalizar')">Finalizar</button></div>
-
-<div class="card"><h3>NUTEC</h3><div id="NUTEC" class="status">...</div>
-<button onclick="enviar('NUTEC','abrir')">Abrir</button>
-<button onclick="enviar('NUTEC','finalizar')">Finalizar</button></div>
-
-<div class="card"><h3>QSMS</h3><div id="QSMS" class="status">...</div>
-<button onclick="enviar('QSMS','abrir')">Abrir</button>
-<button onclick="enviar('QSMS','finalizar')">Finalizar</button></div>
-
-<div class="card"><h3>INFRAESTRUTURA</h3><div id="INFRAESTRUTURA" class="status">...</div>
-<button onclick="enviar('INFRAESTRUTURA','abrir')">Abrir</button>
-<button onclick="enviar('INFRAESTRUTURA','finalizar')">Finalizar</button></div>
-
-<div class="card"><h3>SUPRIMENTOS</h3><div id="SUPRIMENTOS" class="status">...</div>
-<button onclick="enviar('SUPRIMENTOS','abrir')">Abrir</button>
-<button onclick="enviar('SUPRIMENTOS','finalizar')">Finalizar</button></div>
-
-</div>
-
-<script>
-var url = "https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec";
-
-function enviar(setor, acao) {
-  fetch(url + "?setor=" + setor + "&acao=" + acao, {mode:"no-cors"});
-  setTimeout(atualizar, 500);
-}
-
-function atualizar() {
-  fetch(url + "?listar=1")
-    .then(res => res.json())
-    .then(dados => {
-      for (let setor in dados) {
-        let el = document.getElementById(setor);
-
-        if (dados[setor] == 1) {
-          el.innerText = "Ocupado";
-          el.className = "status ocupado";
-        } else {
-          el.innerText = "Livre";
-          el.className = "status livre";
-        }
-      }
-    });
-}
-
-setInterval(atualizar, 3000);
-atualizar();
-</script>
-
-</body>
-</html>
+    function clicar(setor) {
+      fetch(url + "?setor=" + setor)
+        .then(() => atualizar());
+    }
