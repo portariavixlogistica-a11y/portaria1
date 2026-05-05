@@ -3,56 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <title>Portaria</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .setor {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .status {
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .livre {
+      color: green;
+    }
+
+    .ocupado {
+      color: red;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .abrir {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .finalizar {
+      background-color: #dc3545;
+      color: white;
+    }
+
+  </style>
 </head>
+
 <body>
 
-<h2>Controle de Chamados</h2>
+<h1>Sistema de Chamados</h1>
 
-<button onclick="enviar('DP','abrir')">Abrir DP</button>
-<button onclick="enviar('DP','finalizar')">Finalizar DP</button>
+<div class="container">
 
-<br><br>
+  <div class="card">
+    <div class="setor">DP</div>
+    <div class="status livre" id="DP">Livre</div>
+    <button class="abrir" onclick="enviar('DP','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('DP','finalizar')">Finalizar</button>
+  </div>
 
-<button onclick="enviar('RH','abrir')">Abrir RH</button>
-<button onclick="enviar('RH','finalizar')">Finalizar RH</button>
+  <div class="card">
+    <div class="setor">RH</div>
+    <div class="status livre" id="RH">Livre</div>
+    <button class="abrir" onclick="enviar('RH','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('RH','finalizar')">Finalizar</button>
+  </div>
 
-<br><br>
+  <div class="card">
+    <div class="setor">MANUTENÇÃO</div>
+    <div class="status livre" id="MANUTENCAO">Livre</div>
+    <button class="abrir" onclick="enviar('MANUTENCAO','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('MANUTENCAO','finalizar')">Finalizar</button>
+  </div>
 
-<button onclick="enviar('MANUTENCAO','abrir')">Abrir Manutenção</button>
-<button onclick="enviar('MANUTENCAO','finalizar')">Finalizar Manutenção</button>
+  <div class="card">
+    <div class="setor">NUTEC</div>
+    <div class="status livre" id="NUTEC">Livre</div>
+    <button class="abrir" onclick="enviar('NUTEC','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('NUTEC','finalizar')">Finalizar</button>
+  </div>
 
-<br><br>
+  <div class="card">
+    <div class="setor">QSMS</div>
+    <div class="status livre" id="QSMS">Livre</div>
+    <button class="abrir" onclick="enviar('QSMS','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('QSMS','finalizar')">Finalizar</button>
+  </div>
 
-<button onclick="enviar('NUTEC','abrir')">Abrir NUTEC</button>
-<button onclick="enviar('NUTEC','finalizar')">Finalizar NUTEC</button>
+  <div class="card">
+    <div class="setor">INFRAESTRUTURA</div>
+    <div class="status livre" id="INFRAESTRUTURA">Livre</div>
+    <button class="abrir" onclick="enviar('INFRAESTRUTURA','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('INFRAESTRUTURA','finalizar')">Finalizar</button>
+  </div>
 
-<br><br>
+  <div class="card">
+    <div class="setor">SUPRIMENTOS</div>
+    <div class="status livre" id="SUPRIMENTOS">Livre</div>
+    <button class="abrir" onclick="enviar('SUPRIMENTOS','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('SUPRIMENTOS','finalizar')">Finalizar</button>
+  </div>
 
-<button onclick="enviar('QSMS','abrir')">Abrir QSMS</button>
-<button onclick="enviar('QSMS','finalizar')">Finalizar QSMS</button>
-
-<br><br>
-
-<button onclick="enviar('INFRAESTRUTURA','abrir')">Abrir Infraestrutura</button>
-<button onclick="enviar('INFRAESTRUTURA','finalizar')">Finalizar Infraestrutura</button>
-
-<br><br>
-
-<button onclick="enviar('SUPRIMENTOS','abrir')">Abrir Suprimentos</button>
-<button onclick="enviar('SUPRIMENTOS','finalizar')">Finalizar Suprimentos</button>
+</div>
 
 <script>
 function enviar(setor, acao) {
-  fetch("https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec?setor=" + setor + "&acao=" + acao, {
-    method: "GET",
-    mode: "no-cors"
-  })
-  .then(() => {
-    alert("Enviado com sucesso: " + setor + " - " + acao);
-  })
-  .catch(() => {
-    alert("Erro ao enviar");
-  });
+  var url = "https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec";
+  var link = url + "?setor=" + setor + "&acao=" + acao;
+
+  fetch(link, { method: "GET", mode: "no-cors" });
+
+  var status = document.getElementById(setor);
+
+  if (acao === "abrir") {
+    status.innerText = "Ocupado";
+    status.className = "status ocupado";
+  } else {
+    status.innerText = "Livre";
+    status.className = "status livre";
+  }
 }
 </script>
 
