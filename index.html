@@ -1,94 +1,151 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
   <title>Portaria</title>
 
   <style>
     body {
       font-family: Arial;
       text-align: center;
-      background: #f4f6f8;
+      background-color: #f4f6f9;
       margin: 0;
       padding: 20px;
     }
 
     h1 {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .container {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      max-width: 900px;
-      gap: 10px;
-      max-width: 800px;
-      margin: auto;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
     }
 
-    button {
+    .card {
+      background: white;
       padding: 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .setor {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .status {
+      font-weight: bold;
+      margin-bottom: 15px;
     }
 
     .livre {
-@@ -42,52 +34,27 @@
+      color: green;
+    }
+
     .ocupado {
-      background: red;
+      color: red;
     }
 
-    button:hover {
-      opacity: 0.8;
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
     }
 
-    /* 📱 MOBILE (NÃO AFETA DESKTOP) */
-    @media (max-width: 600px) {
-
-      .container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        padding: 10px;
-      }
-
-      button {
-        padding: 30px 10px;
-        font-size: 18px;
-        border-radius: 15px;
-      }
-
-      h1 {
-        font-size: 22px;
-      }
-
+    .abrir {
+      background-color: #28a745;
+      color: white;
     }
+
+    .finalizar {
+      background-color: #dc3545;
+      color: white;
+    }
+
   </style>
 </head>
 
 <body>
 
-  <h1>Portaria</h1>
+<h1>Sistema de Chamados</h1>
 
-  <div class="container">
-    <button id="DP" class="livre" onclick="clicar('DP')">DP</button>
-    <button id="RH" class="livre" onclick="clicar('RH')">RH</button>
-    <button id="MANUTENCAO" class="livre" onclick="clicar('MANUTENCAO')">MANUTENÇÃO</button>
-    <button id="NUTEC" class="livre" onclick="clicar('NUTEC')">NUTEC</button>
-    <button id="QSMS" class="livre" onclick="clicar('QSMS')">QSMS</button>
-    <button id="INFRAESTRUTURA" class="livre" onclick="clicar('INFRAESTRUTURA')">INFRA</button>
-    <button id="SUPRIMENTOS" class="livre" onclick="clicar('SUPRIMENTOS')">SUPRIMENTOS</button>
+<div class="container">
+
+  <div class="card">
+    <div class="setor">DP</div>
+    <div class="status livre" id="DP">Livre</div>
+    <button class="abrir" onclick="enviar('DP','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('DP','finalizar')">Finalizar</button>
   </div>
 
-  <script>
-    const url = "https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec";
+  <div class="card">
+    <div class="setor">RH</div>
+    <div class="status livre" id="RH">Livre</div>
+    <button class="abrir" onclick="enviar('RH','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('RH','finalizar')">Finalizar</button>
+  </div>
 
-    function clicar(setor) {
-      fetch(url + "?setor=" + setor)
-        .then(() => atualizar());
-    }
+  <div class="card">
+    <div class="setor">MANUTENÇÃO</div>
+    <div class="status livre" id="MANUTENCAO">Livre</div>
+    <button class="abrir" onclick="enviar('MANUTENCAO','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('MANUTENCAO','finalizar')">Finalizar</button>
+  </div>
+
+  <div class="card">
+    <div class="setor">NUTEC</div>
+    <div class="status livre" id="NUTEC">Livre</div>
+    <button class="abrir" onclick="enviar('NUTEC','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('NUTEC','finalizar')">Finalizar</button>
+  </div>
+
+  <div class="card">
+    <div class="setor">QSMS</div>
+    <div class="status livre" id="QSMS">Livre</div>
+    <button class="abrir" onclick="enviar('QSMS','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('QSMS','finalizar')">Finalizar</button>
+  </div>
+
+  <div class="card">
+    <div class="setor">INFRAESTRUTURA</div>
+    <div class="status livre" id="INFRAESTRUTURA">Livre</div>
+    <button class="abrir" onclick="enviar('INFRAESTRUTURA','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('INFRAESTRUTURA','finalizar')">Finalizar</button>
+  </div>
+
+  <div class="card">
+    <div class="setor">SUPRIMENTOS</div>
+    <div class="status livre" id="SUPRIMENTOS">Livre</div>
+    <button class="abrir" onclick="enviar('SUPRIMENTOS','abrir')">Abrir</button>
+    <button class="finalizar" onclick="enviar('SUPRIMENTOS','finalizar')">Finalizar</button>
+  </div>
+
+</div>
+
+<script>
+function enviar(setor, acao) {
+  var url = "https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec";
+  var link = url + "?setor=" + setor + "&acao=" + acao;
+
+  fetch(link, { method: "GET", mode: "no-cors" });
+
+  var status = document.getElementById(setor);
+
+  if (acao === "abrir") {
+    status.innerText = "Ocupado";
+    status.className = "status ocupado";
+  } else {
+    status.innerText = "Livre";
+    status.className = "status livre";
+  }
+}
+</script>
+
+</body>
+</html>
