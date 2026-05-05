@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tela Setor</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial;
+    }
+
+    .chamado {
+      display: none;
+      width: 100%;
+      height: 100%;
+      background: green;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 80px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="tela" class="chamado">
+  <h1>PORTARIA</h1>
+</div>
+
+<script>
+const url = "https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec";
+
+// ⚠️ TROQUE AQUI PELO SETOR
+const setor = "RH"; 
+
+function atualizar() {
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      let tela = document.getElementById("tela");
+
+      if (data[setor] == 1) {
+        tela.style.display = "flex";
+      } else {
+        tela.style.display = "none";
+      }
+    });
+}
+
+// atualiza a cada 2 segundos
+setInterval(atualizar, 2000);
+
+</script>
+
+</body>
+</html>
