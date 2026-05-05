@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Chamado DP</title>
+</head>
+
+<body style="margin:0; background:black; color:white; display:flex; justify-content:center; align-items:center; height:100vh; font-size:50px;">
+
+<div id="tela">Aguardando...</div>
+
+<script>
+const url = "https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec";
+const setor = "DP";
+
+setInterval(() => {
+  fetch(url + "?setor=" + setor)
+    .then(res => res.text())
+    .then(valor => {
+      if (valor == "1") {
+        document.body.style.background = "green";
+        document.getElementById("tela").innerText = "PORTARIA";
+      } else {
+        document.body.style.background = "black";
+        document.getElementById("tela").innerText = "";
+      }
+    });
+}, 3000);
+</script>
+
+</body>
+</html>
