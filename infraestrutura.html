@@ -8,31 +8,28 @@
     body {
       margin: 0;
       background-color: black;
-      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
+      color: white;
+      font-size: 60px;
       font-family: Arial;
     }
 
-    #tela {
-      display: none;
+    .alerta {
+      background-color: green;
       width: 100%;
       height: 100%;
-      background-color: green;
-      color: white;
-      font-size: 60px;
+      display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    .piscar {
       animation: piscar 1s infinite;
     }
 
     @keyframes piscar {
       0% { opacity: 1; }
-      50% { opacity: 0.3; }
+      50% { opacity: 0.2; }
       100% { opacity: 1; }
     }
   </style>
@@ -40,35 +37,35 @@
 
 <body>
 
-<div id="tela">PORTARIA</div>
+<div id="tela">Aguardando...</div>
 
 <script>
-const url = "https://script.google.com/macros/s/AKfycbzXHj1XDbSRs_VX7cn9riyMnJI8HRP7KDKrCg4HbyQjX147gkCZ7wKO2sei1CDuzpVP/exec";
+  const url = "https://script.google.com/macros/s/AKfycbzXHj1XDbSRs_VX7cn9riyMnJI8HRP7KDKrCg4HbyQjX147gkCZ7wKO2sei1CDuzpVP/exec";
+  const setor = "INFRAESTRUTURA";
 
-function verificar() {
-  fetch(url + "?setor=INFRAESTRUTURA")
-    .then(res => res.text())
-    .then(valor => {
+  async function verificar() {
+    try {
+      const resposta = await fetch(`${url}?setor=${setor}`);
+      const texto = await resposta.text();
 
       const tela = document.getElementById("tela");
 
-      if (valor == "1") {
-        tela.style.display = "flex";
-        tela.classList.add("piscar");
+      if (texto == "1") {
+        tela.innerHTML = '<div class="alerta">PORTARIA</div>';
       } else {
-        tela.style.display = "none";
-        tela.classList.remove("piscar");
+        tela.innerHTML = "Aguardando...";
       }
 
-    })
-    .catch(err => console.log(err));
-}
+    } catch (erro) {
+      console.error("Erro:", erro);
+    }
+  }
 
-// verifica a cada 1 segundo
-setInterval(verificar, 1000);
+  // verifica a cada 2 segundos
+  setInterval(verificar, 2000);
 
-// roda uma vez ao abrir
-verificar();
+  // roda assim que abrir
+  verificar();
 </script>
 
 </body>
