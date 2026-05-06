@@ -7,11 +7,11 @@
   <style>
     body {
       margin: 0;
-      background-color: black;
+      background: black;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       font-family: Arial;
     }
 
@@ -19,22 +19,21 @@
       display: none;
       width: 100%;
       height: 100%;
-      background-color: green;
-      justify-content: center;
-      align-items: center;
+      background: green;
       color: white;
       font-size: 80px;
+      justify-content: center;
+      align-items: center;
     }
 
-    /* EFEITO PISCANDO */
     .piscar {
       animation: piscar 1s infinite;
     }
 
     @keyframes piscar {
-      0% { opacity: 1; }
-      50% { opacity: 0.2; }
-      100% { opacity: 1; }
+      0% {opacity: 1;}
+      50% {opacity: 0.2;}
+      100% {opacity: 1;}
     }
   </style>
 </head>
@@ -44,40 +43,25 @@
 <div id="tela">PORTARIA</div>
 
 <script>
-const url = "https://script.google.com/macros/s/AKfycbx6hnJsNGh8KrbieAa4PnOGyNCda-T-qrEqxK3wqOl5XkBLij3W1LjzAWj6QmQZeFNl/exec";
-
-let estadoAtual = null;
+const url = "COLE_SUA_URL_CORRETA_AQUI";
 
 function verificar() {
   fetch(url + "?setor=INFRAESTRUTURA")
-    .then(res => res.text())
-    .then(valor => {
-
-      // Só atualiza se mudar (evita bug)
-      if (valor === estadoAtual) return;
-
-      estadoAtual = valor;
-
+    .then(r => r.text())
+    .then(v => {
       const tela = document.getElementById("tela");
 
-      if (valor == "1") {
+      if (v.trim() == "1") {
         tela.style.display = "flex";
         tela.classList.add("piscar");
-        document.body.style.backgroundColor = "black";
       } else {
         tela.style.display = "none";
         tela.classList.remove("piscar");
-        document.body.style.backgroundColor = "black";
       }
-
-    })
-    .catch(err => console.log(err));
+    });
 }
 
-// 🔥 VERIFICA CONSTANTEMENTE (SEM PRECISAR F5)
 setInterval(verificar, 1000);
-
-// roda uma vez ao abrir
 verificar();
 </script>
 
