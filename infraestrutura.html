@@ -2,61 +2,57 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>INFRAESTRUTURA</title>
+  <title>Infraestrutura</title>
 
   <style>
     body {
       margin: 0;
-      background: black;
+      background-color: black;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      color: white;
+      font-size: 60px;
       font-family: Arial;
     }
 
     #tela {
+      display: none;
       width: 100%;
       height: 100%;
-      display: none;
+      background-color: green;
       justify-content: center;
       align-items: center;
-      font-size: 80px;
-      font-weight: bold;
-      color: white;
-      background: green;
     }
   </style>
 </head>
 
 <body>
 
-<div id="tela">
-  PORTARIA
-</div>
+<div id="tela">PORTARIA</div>
 
 <script>
-const setor = "INFRAESTRUTURA";
-
 const url = "https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec";
 
 function verificar() {
-  fetch(url)
+  fetch(url + "?setor=INFRAESTRUTURA")
     .then(res => res.text())
-    .then(() => {
-      fetch(url + "?setor=" + setor)
-        .then(res => res.text())
-        .then(valor => {
-          if (valor == "1") {
-            document.getElementById("tela").style.display = "flex";
-          } else {
-            document.getElementById("tela").style.display = "none";
-          }
-        });
-    });
+    .then(valor => {
+
+      if (valor == "1") {
+        document.body.style.backgroundColor = "green";
+        document.body.innerHTML = "PORTARIA";
+      } else {
+        document.body.style.backgroundColor = "black";
+        document.body.innerHTML = "";
+      }
+
+    })
+    .catch(err => console.log(err));
 }
 
-setInterval(verificar, 3000);
+setInterval(verificar, 2000);
 </script>
 
 </body>
