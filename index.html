@@ -67,7 +67,6 @@
       background-color: #dc3545;
       color: white;
     }
-
   </style>
 </head>
 
@@ -130,12 +129,21 @@
 
 <script>
 function enviar(setor, acao) {
-  var url = "https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec";
-  var link = url + "?setor=" + setor + "&acao=" + acao;
 
-  fetch(link, { method: "GET", mode: "no-cors" });
+  const url = "https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec";
 
-  var status = document.getElementById(setor);
+  const link = url + "?setor=" + setor + "&acao=" + acao;
+
+  fetch(link)
+    .then(response => response.text())
+    .then(data => {
+      console.log("Resposta:", data);
+    })
+    .catch(error => {
+      console.error("Erro:", error);
+    });
+
+  const status = document.getElementById(setor);
 
   if (acao === "abrir") {
     status.innerText = "Ocupado";
