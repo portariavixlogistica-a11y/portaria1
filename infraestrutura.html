@@ -8,64 +8,69 @@
     body {
       margin: 0;
       background-color: black;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      color: white;
-      font-size: 60px;
       font-family: Arial;
     }
 
-    .alerta {
-      background-color: green;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    #texto {
+      font-size: 80px;
+      color: white;
+      display: none;
+    }
+
+    .piscar {
       animation: piscar 1s infinite;
     }
 
     @keyframes piscar {
-      0% { opacity: 1; }
-      50% { opacity: 0.2; }
-      100% { opacity: 1; }
+      0% { background-color: green; }
+      50% { background-color: black; }
+      100% { background-color: green; }
     }
   </style>
 </head>
 
 <body>
 
-<div id="tela">Aguardando...</div>
+<div id="texto">PORTARIA</div>
 
 <script>
-  const url = "https://script.google.com/macros/s/AKfycbzXHj1XDbSRs_VX7cn9riyMnJI8HRP7KDKrCg4HbyQjX147gkCZ7wKO2sei1CDuzpVP/exec";
-  const setor = "INFRAESTRUTURA";
+const url = "COLE_SUA_URL_AQUI"; // 👈 COLE SUA URL AQUI
 
-  async function verificar() {
-    try {
-      const resposta = await fetch(`${url}?setor=${setor}`);
-      const texto = await resposta.text();
+let ativo = false;
 
-      const tela = document.getElementById("tela");
+function verificar() {
+  fetch(url + "?setor=INFRAESTRUTURA")
+    .then(res => res.text())
+    .then(valor => {
 
-      if (texto == "1") {
-        tela.innerHTML = '<div class="alerta">PORTARIA</div>';
+      if (valor == "1") {
+
+        if (!ativo) {
+          ativo = true;
+
+          document.getElementById("texto").style.display = "block";
+          document.body.classList.add("piscar");
+        }
+
       } else {
-        tela.innerHTML = "Aguardando...";
+
+        ativo = false;
+
+        document.getElementById("texto").style.display = "none";
+        document.body.classList.remove("piscar");
+        document.body.style.backgroundColor = "black";
       }
 
-    } catch (erro) {
-      console.error("Erro:", erro);
-    }
-  }
+    })
+    .catch(err => console.log(err));
+}
 
-  // verifica a cada 2 segundos
-  setInterval(verificar, 2000);
-
-  // roda assim que abrir
-  verificar();
+// verifica a cada 1 segundo (bem rápido 🔥)
+setInterval(verificar, 1000);
 </script>
 
 </body>
