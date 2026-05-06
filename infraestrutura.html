@@ -7,7 +7,7 @@
   <style>
     body {
       margin: 0;
-      background: black;
+      background-color: black;
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -19,9 +19,9 @@
       display: none;
       width: 100%;
       height: 100%;
-      background: green;
+      background-color: green;
       color: white;
-      font-size: 80px;
+      font-size: 60px;
       justify-content: center;
       align-items: center;
     }
@@ -31,9 +31,9 @@
     }
 
     @keyframes piscar {
-      0% {opacity: 1;}
-      50% {opacity: 0.2;}
-      100% {opacity: 1;}
+      0% { opacity: 1; }
+      50% { opacity: 0.3; }
+      100% { opacity: 1; }
     }
   </style>
 </head>
@@ -43,25 +43,31 @@
 <div id="tela">PORTARIA</div>
 
 <script>
-const url = "https://script.google.com/macros/s/AKfycbybca2Xxuly0C6sA6o2a1p1duiH9rUnSpJXDQdPHEYOwRuDWRsXzMFAIC7ecR85HPA/exec";
+const url = "COLE_SUA_URL_AQUI";
 
 function verificar() {
   fetch(url + "?setor=INFRAESTRUTURA")
-    .then(r => r.text())
-    .then(v => {
+    .then(res => res.text())
+    .then(valor => {
+
       const tela = document.getElementById("tela");
 
-      if (v.trim() == "1") {
+      if (valor == "1") {
         tela.style.display = "flex";
         tela.classList.add("piscar");
       } else {
         tela.style.display = "none";
         tela.classList.remove("piscar");
       }
-    });
+
+    })
+    .catch(err => console.log(err));
 }
 
+// verifica a cada 1 segundo
 setInterval(verificar, 1000);
+
+// roda uma vez ao abrir
 verificar();
 </script>
 
